@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MaterialApp(
       home: Home(),
@@ -24,6 +25,7 @@ class _HomeState extends State<Home> {
       _pesoController.text = "";
       _textoDeInformacao = "Informe Seus Dados";
       _chaveFormulario = GlobalKey<FormState>();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
     });
   }
 
@@ -117,6 +119,7 @@ class _HomeState extends State<Home> {
                       onPressed: (){
                         if(_chaveFormulario.currentState.validate()){
                           _calculaIMC();
+                          SystemChannels.textInput.invokeMethod('TextInput.hide');
                         }
                       },
                       child: Text(
